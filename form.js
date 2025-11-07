@@ -3,14 +3,20 @@ import fs from "fs";
 // get data from html file
 http
   .createServer((req, res) => {
+    console.log(req.url);
+
     fs.readFile("html/form.html", "utf-8", (err, data) => {
       if (err) {
         res.writeHead(500, "server error", { "content-type": "text/plain" });
-        res.end();
         return;
       } else {
-        res.writeHead(200, "success", { "content-type": "text/html" });
-        res.write(data);
+        if (req.url == "/") {
+          res.writeHead(200, "success", { "content-type": "text/html" });
+          res.write(data);
+        } else if (req.url == "/submit") {
+          res.write("<h1>form submitted</h1>");
+        }
+
         res.end();
       }
     });
