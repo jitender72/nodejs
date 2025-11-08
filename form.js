@@ -1,25 +1,24 @@
 import http from "http";
 import fs from "fs";
+import querystring from "querystring";
 // get data from html file
 http
   .createServer((req, res) => {
-    console.log(req.url);
-
-    fs.readFile("html/form.html", "utf-8", (err, data) => {
-      if (err) {
-        res.writeHead(500, "server error", { "content-type": "text/plain" });
-        return;
-      } else {
-        if (req.url == "/") {
-          res.writeHead(200, "success", { "content-type": "text/html" });
-          res.write(data);
-        } else if (req.url == "/submit") {
-          res.write("<h1>form submitted</h1>");
+    if (req.url === "/") {
+      fs.readFile("html/form.html", "utf-8", (err, data) => {
+        if (err) {
+          res.writeHead(500, { "content-type": "text/plain" });
+          res.write("server error");
+          res.end();
+          return;
         }
-
+        res.write(data);
         res.end();
-      }
-    });
+      });
+    } else if (req.url === "/submit") {
+      res.write("form submitted");
+      res.end();
+    }
   })
   .listen(3000);
 

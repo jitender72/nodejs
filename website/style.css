@@ -1,0 +1,16 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.nav {
+  background-color: purple;
+  padding: 1rem;
+  border-radius: 8px;
+}
+.ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
